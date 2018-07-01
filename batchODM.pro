@@ -26,12 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    taskdialog.cpp
+    taskdialog.cpp \
+    imagelistitem.cpp
 
 HEADERS += \
         mainwindow.h \
-    taskdialog.h
+    taskdialog.h \
+    imagelistitem.h
 
 FORMS += \
         mainwindow.ui \
-    taskdialog.ui
+    taskdialog.ui \
+    imagelistitem.ui

@@ -21,20 +21,14 @@ void taskDialog::on_ok_button_clicked()
 {
     folder=ui->folder->text();
     folderName=ui->folderName->text();
-    if(folder!=""&&folderName!="")
-    {
-        this->close();
-    }else{
-        QWidget *reminder = new QWidget(ui->widget);
-        QLabel *label = new QLabel("*名称不能为空");
+    if(folder != "" || folderName != "") {
+        this->accept();
+    } else {
+        QLabel *label = ui->errorMsg;
         QPalette pa;
         pa.setColor(QPalette::WindowText,Qt::red);
-        QHBoxLayout *layout = new QHBoxLayout;
         label->setPalette(pa);
-        layout->addWidget(reminder);
-        reminder->setLayout(layout);
-        reminder->show();
-
+        label->setText("名称不能为空");
     }
 
 }
@@ -59,4 +53,9 @@ void taskDialog::on_pushButton_clicked()
     for(int i=0;i<absoluteList.size();i++){
         fileList.append(absoluteList.at(i).filePath());
     }
+}
+
+void taskDialog::on_cancel_clicked()
+{
+    this->reject();
 }

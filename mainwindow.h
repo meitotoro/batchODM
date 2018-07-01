@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QVBoxLayout>
 #include "taskdialog.h"
+#include "imagelistitem.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     taskDialog dialog;
+
+
     QVBoxLayout *vLayout;
 
 };

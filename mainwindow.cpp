@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "imagelistitem.h"
 
 #include <QDialog>
 #include <QString>
@@ -14,7 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    vLayout=new QVBoxLayout(ui->taskListWidget);
+    ui->imagelist->setStyleSheet("#imagelist::Item:hover{background-color:rgb(41, 189, 139);}\n"
+                                 "#imagelist::Item:selected{background-color:rgb(0, 148, 98);}");
 }
 
 MainWindow::~MainWindow()
@@ -27,26 +29,18 @@ void MainWindow::on_pushButton_clicked()
     dialog.setModal(true);
     int value=dialog.exec();
 
-    QString folder= dialog.folder;
-    QString folderName=dialog.folderName;
-    QWidget *window = new QWidget();
-    QCheckBox *cb = new QCheckBox();
-    cb->setChecked(true);
-    QLabel *folderNameLabel = new QLabel(folderName);
-    QLabel *folderLabel = new QLabel(folder);
-    QLabel *orthoFlag = new QLabel("正射影像");
-    QProgressBar *pb=new QProgressBar();
-    pb->setMinimum(0);
-    pb->setMaximum(110);
-    pb->setValue(0);
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(cb);
-    layout->addWidget(folderLabel);
-    layout->addWidget(folderNameLabel);
-    layout->addWidget(orthoFlag);
-    layout->addWidget(pb);
-    window->setLayout(layout);
-    vLayout->addWidget(window);
+    if (value == QDialog::Accepted) {
+        QString folder= dialog.folder;
+        QString folderName=dialog.folderName;
 
+        ui->imagelist->setResizeMode(QListView::Adjust);
+        ui->imagelist->setAutoScroll(true);
+        ImageListItem *itemView=new ImageListItem(folder,folderName,ui->imagelist);
 
+        QListWidgetItem *imageItem = new QListWidgetItem(ui->imagelist);
+        imageItem->setSizeHint(QSize(0,40));
+        ui->imagelist->addItem(imageItem);
+
+        ui->imagelist->setItemWidget(imageItem,itemView);
+    }
 }

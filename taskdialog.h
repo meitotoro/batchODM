@@ -23,6 +23,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_cancel_clicked();
+
 private:
     Ui::taskDialog *ui;
 

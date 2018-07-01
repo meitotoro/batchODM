@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>620</width>
-    <height>449</height>
+    <width>631</width>
+    <height>404</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,47 +19,21 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>93</width>
-      <height>28</height>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>增加文件夹</string>
     </property>
    </widget>
-   <widget class="QScrollArea" name="taskListWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>581</width>
-      <height>231</height>
-     </rect>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOn</enum>
-    </property>
-    <property name="widgetResizable">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>558</width>
-       <height>229</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>320</x>
       <y>330</y>
-      <width>93</width>
-      <height>28</height>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -69,10 +43,10 @@
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>210</x>
       <y>330</y>
-      <width>93</width>
-      <height>28</height>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -90,6 +64,16 @@
     </property>
     <property name="text">
      <string>全选</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="imagelist">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>591</width>
+      <height>231</height>
+     </rect>
     </property>
    </widget>
   </widget>
