@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QString>
 #include <QStringList>
+#include "task.h"
 
 class QNetworkAccessManager;
 
@@ -33,6 +34,7 @@ private:
 
     QStringList fileList;
     QNetworkAccessManager *manager;
+    Task task;
 };
 
 #endif // TASKDIALOG_H

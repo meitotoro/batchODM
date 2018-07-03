@@ -27,12 +27,19 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     taskdialog.cpp \
-    imagelistitem.cpp
+    imagelistitem.cpp \
+    taskmanager.cpp \
+    task.cpp \
+    task.cpp \
+    sendfiles.cpp
 
 HEADERS += \
         mainwindow.h \
     taskdialog.h \
-    imagelistitem.h
+    imagelistitem.h \
+    taskmanager.h \
+    task.h \
+    sendfiles.h
 
 FORMS += \
         mainwindow.ui \

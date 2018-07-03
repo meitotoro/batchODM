@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "QCheckBox"
+#include "QProgressBar"
 
 namespace Ui {
 class ImageListItem;
@@ -15,6 +16,7 @@ class ImageListItem : public QWidget
 public:
     explicit ImageListItem(QString folder,QString folderName,QWidget *parent = 0);
     QCheckBox* cb;
+    QProgressBar* pb;
     ~ImageListItem();
 
 private:
