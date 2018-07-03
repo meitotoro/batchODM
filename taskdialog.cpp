@@ -4,7 +4,6 @@
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QPalette>
-#include <QNetworkAccessManager>
 #include "sendfiles.h"
 #include "task.h"
 
@@ -27,8 +26,7 @@ void taskDialog::on_ok_button_clicked()
     folderName=ui->folderName->text();
     if(folder != "" || folderName != "") {
         this->accept();
-
-        Task task=new Task();
+        task=new Task(manager,fileList,folderName);
 
     } else {
         QLabel *label = ui->errorMsg;

@@ -13,11 +13,10 @@ class Task : public QObject
 public:
     explicit Task(QNetworkAccessManager* netman,QStringList& list, QString& batchName,QObject *parent = nullptr);
 
-private:
-    sendFiles();//调用sendfiles
-    run();//调用docker的run
-    stop();//调用docker的stop
-    getProgress();//调用docker的getProgress
+    void sendFiles();//调用sendfiles
+    void run();//调用docker的run
+    void stop();//调用docker的stop
+    void getProgress();//调用docker的getProgress
 
 signals:
 

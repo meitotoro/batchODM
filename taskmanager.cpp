@@ -1,42 +1,51 @@
 #include "taskmanager.h"
 #include <QTimer>
+#include <QEventLoop>
 TaskManager::TaskManager()
 {
 
 }
-TaskManager::addTask(Task task){
+void TaskManager::addTask(Task task){
     taskList.push_back(task);
+    selected.push_back(false);
 }
 
-TaskManager::select(Task task){
-    taskList_selected.push_back(task);
+void TaskManager::select(int index){
+    selected[index] = true;
 }
-TaskManager::deselect(Task task){
-    taskList_deselected.push_back(task);
+void TaskManager::deselect(int index){
+    selected[index] = false;
 }
-TaskManager::setParalNum(int num){
+void TaskManager::setParalNum(int num){
     _num=num;
 }
-TaskManager::runSelected(){
-    std::deque<2,Task> tasksToSend;
-    tasksToSend.push_back(taskList_selected.pop_back());
-    tasksToSend.push_back(taskList_selected.pop_back());
-    for(Task iter=taskList_selected.begin();iter!=taskList_selected.end();iter++){
-        for(int i=0;i<2;i++){
-            tasksToSend.push_back(iter);
-            iter.sendFiles();
+void TaskManager::runSelected() {
+    std::deque<Task> tasksToSend;
+    for (int i = 0; i < selected.size(); ++i) {
+        if (selected[i]) {
+            tasksToSend.push_back(taskList[i]);
         }
-        while(!=tasksToSend.empty()){
-            for(int i=0;i<2;i++){
-                QTimer timer=new QTimer();
-                connect(timer,QTimer::timeout,[=](){
-                    int pg=update(iter);
-                    if(pg==100){
-                        tasksToSend.;
-                    }});
-            }
+    }
 
+    while (!tasksToSend.empty()) {
+        if (_sent < _num) {
+            Task t = tasksToSend.front();
+            tasksToSend.pop_front();
+            t.sendFiles();
+            t.run();
+            ++_sent;
+        } else {
+            QEventLoop loop;
+            // TODO: 等待一个任务结束（将任务结束信号连接到循环的退出函数）
+            loop.exec();
         }
+    }
+}
 
+void TaskManager::stopSelected() {
+    for (int i = 0; i < selected.size(); ++i) {
+        if (selected[i]) {
+            taskList[i].stop();
+        }
     }
 }
