@@ -5,6 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += network
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,7 +33,8 @@ SOURCES += \
     taskmanager.cpp \
     task.cpp \
     task.cpp \
-    sendfiles.cpp
+    sendfiles.cpp \
+    docker.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +42,8 @@ HEADERS += \
     imagelistitem.h \
     taskmanager.h \
     task.h \
-    sendfiles.h
+    sendfiles.h \
+    docker.h
 
 FORMS += \
         mainwindow.ui \

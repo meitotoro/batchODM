@@ -19,8 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->imagelist->setStyleSheet("#imagelist::Item:hover{background-color:rgb(41, 189, 139);}\n"
                                  "#imagelist::Item:selected{background-color:rgb(0, 148, 98);}");
-    taskManager=new TaskManager();
-    timer = new QTimer(this);
+    //taskManager=new TaskManager();
     
 }
 
@@ -48,9 +47,9 @@ void MainWindow::on_pushButton_clicked()
         ui->imagelist->addItem(imageItem);
 
         ui->imagelist->setItemWidget(imageItem,itemView);
-        Task task=dialog.task;
-        taskManager->addTask(task);
-        task->setProgressBar(itemView->pb);
+//        Task task=dialog.task;
+//        taskManager->addTask(task);
+//        task->setProgressBar(itemView->pb);
     }
 }
 
@@ -71,6 +70,7 @@ void MainWindow::on_cb_AllSelected_stateChanged()
 void MainWindow::on_ok_button_clicked()
 {
     for(int i=0;i<imageList.size();i++){
+        auto &item=imageList[i];
         if(item->cb->checkState()==Qt::Checked){
             taskManager->select(i);
         } else {
@@ -80,6 +80,7 @@ void MainWindow::on_ok_button_clicked()
     taskManager->setParalNum(2);//一次运行两个task
     taskManager->runSelected();
 }
+
 
 void MainWindow::on_pushButton_3_clicked()
 {

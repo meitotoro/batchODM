@@ -17,8 +17,9 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(TaskManager taskManager,QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    TaskManager *taskManager;
 
 private slots:
     void on_pushButton_clicked();
@@ -27,10 +28,13 @@ private slots:
 
     void on_ok_button_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     taskDialog dialog;
     QList<ImageListItem*> imageList;
+
 
 
     QVBoxLayout *vLayout;

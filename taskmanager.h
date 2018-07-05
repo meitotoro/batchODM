@@ -1,15 +1,15 @@
-#ifndef TASKMANAGER_H
+﻿#ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 #include <QObject>
 #include "task.h"
 
-
+class QNetworkAccessManager;
 class TaskManager:public QObject
 {
     Q_OBJECT
-private:
+public:
     void setParalNum(int num);//设置一次并行任务个数
-    void addTask(Task task);//增加任务
+    void addTask(Task *task);//增加任务
     void runSelected();//运行选中的任务
     void stopSelected();//停止运行选中的任务
     int update(Task task);//更新任务，获取进度,返回进度数组
@@ -17,12 +17,16 @@ private:
     void deselect(int index);//task没有被选中，返回false
 
 public:
-    TaskManager();
+    TaskManager(QNetworkAccessManager *netman);
+
+private slots:
+    //void quit();
 
 private:
-    std::vector<Task> taskList;
+    std::vector<Task*> taskList;
     std::vector<bool> selected;
     int _num;
+    QNetworkAccessManager *_netman;
 
 };
 

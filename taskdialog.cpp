@@ -26,7 +26,6 @@ void taskDialog::on_ok_button_clicked()
     folderName=ui->folderName->text();
     if(folder != "" || folderName != "") {
         this->accept();
-        task=new Task(manager,fileList,folderName);
 
     } else {
         QLabel *label = ui->errorMsg;
