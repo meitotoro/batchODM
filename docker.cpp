@@ -45,7 +45,9 @@ void Docker::stop(QNetworkAccessManager *netman)
 //获取当前的log进度，修改_curProgress值
 void Docker::get_progress(QNetworkAccessManager *netman,int min_progress,int max_progress)
 {
-    QUrl url("http://192.168.188.10:9000/progress");
+    QUrlQuery params;
+    params.addQueryItem("folder", _batchName);
+    QUrl url("http://192.168.188.10:9000/progress?"+params.query());
     QNetworkRequest request(url);
     auto reply=netman->get(request);
     connect(reply, &QNetworkReply::finished,[=](){
@@ -73,7 +75,7 @@ void Docker::get_progress(QNetworkAccessManager *netman,int min_progress,int max
                 if (list_data.indexOf("OpenDroneMap app finished")>=0){
                     qDebug()<<"OpenDroneMap app finished";
                     _curProgress=max_progress;
-                    QMessageBox::information(_parent,"提示","finished",QMessageBox::Ok);
+                    //QMessageBox::information(_parent,"提示","finished",QMessageBox::Ok);
                     emit resultReady();
                 }
             }

@@ -2,9 +2,11 @@
 #include "sendfiles.h"
 #include "docker.h"
 #include <QTimer>
+#include <QNetworkAccessManager>
 
-Task::Task(QNetworkAccessManager* netman,QStringList& list, QString& batchName) :
-    _netman(netman),_list(list),_batchName(batchName)
+
+Task::Task(QStringList& list, QString& batchName) :
+    _list(list),_batchName(batchName)
 {
     timer=new QTimer();
     docker=new Docker(_batchName);
@@ -15,30 +17,44 @@ void Task::sendFiles(){
 }
 
 void Task::run() {
-    // 1. 执行docker
+    // 执行docker
     docker->run(_netman);
-    // 2. 定时更新状态 timer
+    // 1. 定时更新状态 timer
+    curProgress=0;
     connect(timer,&QTimer::timeout,[=](){
         docker->get_progress(_netman,0,110);
-        int progress=docker->get_curProgress();
+        preProgress=curProgress;
+        qDebug()<<_batchName+" preProgress: "+QString::number(preProgress);
+        curProgress=docker->get_curProgress();
+        qDebug()<<_batchName+" curProgress: "+QString::number(curProgress);
+        if(curProgress>preProgress){
+            emit progressUpdated(curProgress);
+        }
     });
     connect(docker,&Docker::dockerRun,[=](){
         timer->start(2000);
     });
-    //3.文件太少是弹出提示,断开连接
+    //2.文件太少是弹出提示,断开连接
     connect(docker,&Docker::littleImage,[=](){
         timer->disconnect();
     });
-    // 4. 完成时停止更新状态 connect
+    // 3. 完成时停止更新状态 connect
     connect(docker,&Docker::resultReady,[=](){
         emit dockerFinished();
         timer->stop();
         timer->disconnect();
 
     });
-
 }
+
 void Task::stop(){
     docker->stop(_netman);
 
 }
+
+void Task::setNetworkManager(QNetworkAccessManager* netman){
+    _netman=netman;
+}
+
+
+QNetworkAccessManager *Task::_netman=nullptr;

@@ -10,6 +10,7 @@ ImageListItem::ImageListItem(QString folder, QString folderName, QWidget *parent
     ui->folderName->setText(folderName);
     cb=ui->checkBox;
     pb=ui->progressBar;
+    label=ui->label;
 
 }
 

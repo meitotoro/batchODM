@@ -2,7 +2,8 @@
 #include <QTimer>
 #include <QEventLoop>
 #include "task.h"
-TaskManager::TaskManager(QNetworkAccessManager *netman):_netman(netman)
+#include <QDebug>
+TaskManager::TaskManager()
 
 {
 
@@ -29,6 +30,7 @@ void TaskManager::runSelected() {
         }
     }
     int _sent=0;
+    int i=-1;
     while (!tasksToSend.empty()) {
         QEventLoop loop;
         // TODO: 等待一个任务结束（将任务结束信号连接到循环的退出函数）
@@ -38,12 +40,20 @@ void TaskManager::runSelected() {
                 _sent=_sent-1;
                 &QEventLoop::quit;
             });
+            i++;
             tasksToSend.pop_front();
             t->sendFiles();
+            emit filesSended(i);             
+            connect(t,&Task::progressUpdated,[=](int progress){
+//                qDebug()<<QString::number(i);
+//                qDebug()<<QString::number(progress);
+                emit getPorgress(i,progress);
+            });
             t->run();
             ++_sent;
-        }
+        }else{
          loop.exec();
+        }
     }
 }
 

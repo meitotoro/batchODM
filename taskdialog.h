@@ -20,6 +20,7 @@ public:
     ~taskDialog();
     QString folder;
     QString folderName;
+    QStringList fileList;
 
 private slots:
     void on_ok_button_clicked();
@@ -31,8 +32,6 @@ private slots:
 private:
     Ui::taskDialog *ui;
 
-    QStringList fileList;
-    QNetworkAccessManager *manager;
 };
 
 #endif // TASKDIALOG_H

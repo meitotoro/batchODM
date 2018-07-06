@@ -8,6 +8,11 @@
 #include "imagelistitem.h"
 #include "taskmanager.h"
 
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
+class QNetworkAccessManager;
 namespace Ui {
 class MainWindow;
 }
@@ -20,6 +25,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     TaskManager *taskManager;
+
+signals:
+    void httpConnectFailed();
+    void httpConnectSuccess();
+
+private slots:
+    void reminder(int i);
 
 private slots:
     void on_pushButton_clicked();
@@ -34,10 +46,9 @@ private:
     Ui::MainWindow *ui;
     taskDialog dialog;
     QList<ImageListItem*> imageList;
-
-
-
+    QNetworkAccessManager* netman;
     QVBoxLayout *vLayout;
+    void httpConnectTest();
 
 };
 

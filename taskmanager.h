@@ -17,16 +17,17 @@ public:
     void deselect(int index);//task没有被选中，返回false
 
 public:
-    TaskManager(QNetworkAccessManager *netman);
+    TaskManager();
 
-private slots:
-    //void quit();
+signals:
+    void filesSended(int iFile);
+    void getPorgress(int iFile,int progress);
 
 private:
     std::vector<Task*> taskList;
     std::vector<bool> selected;
     int _num;
-    QNetworkAccessManager *_netman;
+    //QNetworkAccessManager *_netman;
 
 };
 
