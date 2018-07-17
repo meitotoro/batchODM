@@ -39,9 +39,8 @@ void taskDialog::on_ok_button_clicked()
 
 void taskDialog::on_pushButton_clicked()
 {
-    QString filePath = QFileDialog::getExistingDirectory(this, tr("Open Image"), "D:/test",
-                                                         QFileDialog::ShowDirsOnly
-                                                         | QFileDialog::DontResolveSymlinks);
+    QString filePath = QFileDialog::getExistingDirectory(this, tr("Open Image"), "D:/",
+                                                          QFileDialog::ShowDirsOnly|QFileDialog::DontResolveSymlinks);
     //ui->folderName->text()=filePath;
 
     ui->folder->setText(filePath);

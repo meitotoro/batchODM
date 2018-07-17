@@ -143,8 +143,6 @@ void MainWindow::setPauseActionStatus(QAction* pauseAction){
         if(selected.size()>0){
             int count=0;
             for(int i=0;i<imageList.size();i++){
-                QListWidgetItem *item=ui->imagelist->item(i);
-                bool a=item->isSelected();
                 if(taskManager->getDockerStatus(i)){
                    count++;
                 }

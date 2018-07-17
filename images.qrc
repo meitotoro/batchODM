@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/icons8-add-new-50.png</file>
+        <file>images/plus.png</file>
+        <file>images/add-friend.png</file>
+        <file>images/add.png</file>
+        <file>images/关闭.png</file>
+        <file>images/删除.png</file>
+        <file>images/新建.png</file>
+        <file>images/暂停.png</file>
+        <file>images/暂停1.png</file>
+        <file>images/暂停2.png</file>
+        <file>images/开始.png</file>
+        <file>images/开始-disabled.png</file>
+        <file>images/新建-hover.png</file>
+        <file>images/删除-hover.png</file>
+        <file>images/暂停-hover.png</file>
+        <file>images/开始-hover.png</file>
+        <file>images/暂停-disabled.png</file>
+        <file>images/顺序.png</file>
+        <file>images/顺序-disabled.png</file>
+        <file>images/顺序-hover.png</file>
+    </qresource>
+</RCC>

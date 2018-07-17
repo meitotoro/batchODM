@@ -6,32 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>722</width>
-    <height>404</height>
+    <width>1030</width>
+    <height>421</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>正射影像批量生成工具</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>增加文件夹</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>330</y>
+      <x>490</x>
+      <y>320</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -43,8 +30,8 @@
    <widget class="QPushButton" name="ok_button">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>330</y>
+      <x>350</x>
+      <y>320</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -70,10 +57,16 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>60</y>
-      <width>681</width>
-      <height>231</height>
+      <y>10</y>
+      <width>961</width>
+      <height>281</height>
      </rect>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::MultiSelection</enum>
     </property>
    </widget>
   </widget>

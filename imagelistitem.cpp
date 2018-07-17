@@ -11,6 +11,8 @@ ImageListItem::ImageListItem(QString folder, QString folderName, QWidget *parent
     cb=ui->checkBox;
     pb=ui->progressBar;
     label=ui->label;
+    ui->progressBar->setMinimum(0);
+    ui->progressBar->setMaximum(110);
 
 }
 

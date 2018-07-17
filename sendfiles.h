@@ -14,10 +14,12 @@ class SendFiles : public QObject
 public:
     SendFiles(QNetworkAccessManager* netman,QStringList& list, QString& batchName);
     void send(QNetworkAccessManager* netman);
+    void stop(QNetworkAccessManager* netman);
 
 private:
     void sendAll(QNetworkAccessManager* netman);
     void sendFile(QNetworkAccessManager* netman, QString& name);
+    void deleteImage(QNetworkAccessManager *netman);
     void waitForAllFinished();
 
 signals:

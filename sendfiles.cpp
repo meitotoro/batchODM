@@ -16,16 +16,8 @@ SendFiles::SendFiles(QNetworkAccessManager* netman,QStringList &list, QString &b
     for (auto& filename : list) {
         _filesToSend.push_back(filename);
     }
-    QUrlQuery params;
-    params.addQueryItem("folder", _batchName);
-    QUrl url("http://192.168.188.10:9000/delteImage?"+params.query());
-    QNetworkRequest request(url);
-    QNetworkReply* reply = netman->get(request);
-    connect(reply, &QNetworkReply::finished, [=]() {
-        QByteArray rep = reply->readAll();
-        qDebug()<<QString::fromUtf8(rep);
-        reply->deleteLater();
-    });
+    //删除服务器上同名文件夹里的images
+   deleteImage(netman);
 }
 
 void SendFiles::send(QNetworkAccessManager *netman) {
@@ -45,7 +37,23 @@ void SendFiles::send(QNetworkAccessManager *netman) {
         waitForAllFinished();
     }
 }
-
+void SendFiles::stop(QNetworkAccessManager *netman){
+    // 将待发送队列清空
+     _filesToSend.clear();
+     _filesOnAir=-1;
+}
+void SendFiles::deleteImage(QNetworkAccessManager *netman){
+    QUrlQuery params;
+    params.addQueryItem("folder", _batchName);
+    QUrl url("http://192.168.188.10:9000/delteImage?"+params.query());
+    QNetworkRequest request(url);
+    QNetworkReply* reply = netman->get(request);
+    connect(reply, &QNetworkReply::finished, [=]() {
+        QByteArray rep = reply->readAll();
+        qDebug()<<QString::fromUtf8(rep);
+        reply->deleteLater();
+    });
+}
 void SendFiles::sendAll(QNetworkAccessManager *netman)
 {
     // 设置待传输文件的数量

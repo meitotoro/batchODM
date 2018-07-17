@@ -34,7 +34,22 @@ SOURCES += \
     task.cpp \
     task.cpp \
     sendfiles.cpp \
-    docker.cpp
+    docker.cpp \
+    build/debug/moc_docker.cpp \
+    build/debug/moc_imagelistitem.cpp \
+    build/debug/moc_mainwindow.cpp \
+    build/debug/moc_sendfiles.cpp \
+    build/debug/moc_task.cpp \
+    build/debug/moc_taskdialog.cpp \
+    build/debug/moc_taskmanager.cpp \
+    docker.cpp \
+    imagelistitem.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    sendfiles.cpp \
+    task.cpp \
+    taskdialog.cpp \
+    taskmanager.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,9 +58,27 @@ HEADERS += \
     taskmanager.h \
     task.h \
     sendfiles.h \
-    docker.h
+    docker.h \
+    build/debug/moc_predefs.h \
+    build/ui_imagelistitem.h \
+    build/ui_mainwindow.h \
+    build/ui_taskdialog.h \
+    docker.h \
+    imagelistitem.h \
+    mainwindow.h \
+    sendfiles.h \
+    task.h \
+    taskdialog.h \
+    taskmanager.h
 
 FORMS += \
         mainwindow.ui \
     taskdialog.ui \
     imagelistitem.ui
+
+DISTFILES += \
+    images/icons8-add-new-50.png \
+    images/icons8-add-new-50.png
+
+RESOURCES += \
+    images.qrc

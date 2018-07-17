@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QDialog>
 #include <QVBoxLayout>
+#include <QCloseEvent>
+#include <QMenu>
+#include <QString>
 #include "taskdialog.h"
 #include "imagelistitem.h"
 #include "taskmanager.h"
@@ -32,15 +35,19 @@ signals:
 
 private slots:
     void reminder(int i);
+    void slotLocalTestViewContextMenu(const QPoint &position);
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_cb_AllSelected_stateChanged();
 
     void on_ok_button_clicked();
 
     void on_pushButton_3_clicked();
+
+
+
+    void addFolderDialog();
 
 private:
     Ui::MainWindow *ui;
@@ -49,6 +56,16 @@ private:
     QNetworkAccessManager* netman;
     QVBoxLayout *vLayout;
     void httpConnectTest();
+    void creatActions();
+    void setDeleteActionStatus(QAction* deleteAction);
+    void setPauseActionStatus(QAction* pauseAction);
+    void setStartActionStatus(QAction* startAction);
+    QAction* creatAction(QString objectName,QString text,QString pixmap_fileName,QString pixmap_hover_fileName);
+    QList<QAction *> actions;
+    QMenu *rightMenu;
+
+protected:
+     void closeEvent(QCloseEvent *event);
 
 };
 

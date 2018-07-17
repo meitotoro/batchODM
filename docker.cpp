@@ -28,9 +28,22 @@ void Docker::run(QNetworkAccessManager *netman)
 }
 void Docker::stop(QNetworkAccessManager *netman)
 {
+    dockerCommand(netman,"stop");
+}
+void Docker::pause(QNetworkAccessManager *netman)
+{
+    dockerCommand(netman,"pause");
+}
+void Docker::restart(QNetworkAccessManager *netman)
+{
+    dockerCommand(netman,"restart");
+}
+void Docker::dockerCommand(QNetworkAccessManager *netman,QString cmmd){
     QUrlQuery params;
     params.addQueryItem("folder", _batchName);
-    QUrl url("http://192.168.188.10:9000/stopdocker?"+params.query());
+    params.addQueryItem("command",cmmd);
+    qDebug()<<params.query();
+    QUrl url("http://192.168.188.10:9000/dockerCommand?"+params.query());
     QNetworkRequest request(url);
     auto reply=netman->get(request);
     connect(reply, &QNetworkReply::finished,[=](){
@@ -38,10 +51,21 @@ void Docker::stop(QNetworkAccessManager *netman)
         QString s_data = QString::fromUtf8(ba.data());
         //QMessageBox::information(this,"提示",s_data,QMessageBox::Ok);
         reply->deleteLater();
-
+        if(cmmd=="stop"){
+            emit dockerStop();
+            qDebug()<<"docker stop";
+        }else if(cmmd=="pause"){
+            emit dockerPause();
+            qDebug()<<"docker pause";
+        }else if(cmmd=="restart"){
+            emit dockerRestart();
+            qDebug()<<"docker restart";
+        }
     });
-   // emit dockerStopped();
+
 }
+
+
 //获取当前的log进度，修改_curProgress值
 void Docker::get_progress(QNetworkAccessManager *netman,int min_progress,int max_progress)
 {
@@ -58,8 +82,8 @@ void Docker::get_progress(QNetworkAccessManager *netman,int min_progress,int max
         s_data=s_data.replace("\u001B[0m","");
         s_data=s_data.replace("\u001B[0;m","");
         QStringList list_data=s_data.split(QRegExp("\n|\r\n|\r"),QString::SkipEmptyParts);
-        if(list_data.indexOf("[WARNING] Initial residual too low: 0 < 0.000001")>=0){
-            QMessageBox::information(_parent,"提示","图片量太少，请重新选择图片",QMessageBox::Ok);
+        if((list_data.indexOf("[WARNING] Initial residual too low: 0 < 0.000001")>=0)||(list_data.indexOf("Exception: Child returned 1")>=0)){
+            //QMessageBox::information(_parent,"提示","图片量太少，请重新选择图片",QMessageBox::Ok);
             reply->abort();
             emit littleImage();
             _curProgress=0;
@@ -69,7 +93,7 @@ void Docker::get_progress(QNetworkAccessManager *netman,int min_progress,int max
                 QString temp = QString::fromUtf8("running PYTHONPATH");
                 if(s_data.contains(temp)){
                     int step=(max_progress-min_progress)/11;
-                    qDebug()<<step;
+                    //qDebug()<<step;
                     _curProgress+=step;
                 }
                 if (list_data.indexOf("OpenDroneMap app finished")>=0){
@@ -86,16 +110,16 @@ void Docker::get_progress(QNetworkAccessManager *netman,int min_progress,int max
         qDebug()<<"error:"<<code;
 
     });
-//    connect(this,Docker::dockerStopped,[=](){
-//        reply->abort();
-//    });
+    //    connect(this,Docker::dockerStopped,[=](){
+    //        reply->abort();
+    //    });
 
 
 }
 
 //返回当前的进度值
 int Docker::get_curProgress(){
-    qDebug()<<_curProgress;
+    //qDebug()<<_curProgress;
     return _curProgress;
 }
 
